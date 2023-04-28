@@ -1,13 +1,13 @@
 import './_layer.scss';
+import Header from '../header/Header';
+import Footer from '../footer/Footer';
+import Main from '../main/Main';
 
 export default class Layer {
-  get SELECTOR() {
-    return {
-      header: 'header',
-      main: 'main',
-      footer: 'footer',
-    };
+  constructor() {
+    this.patern = document.body;
+    this.header = new Header(this.patern);
+    this.main = new Main(this.patern);
+    this.footer = new Footer(this.patern);
   }
-  // constructor() {};
-  init() {}
 }
