@@ -7,7 +7,7 @@ export default class Key extends CreateElement {
     super(paternElement, 'div', 'key');
     this.keyData = keyData;
     this.onInput = onInput;
-    if (className) this.element.classList.add(className);
+    if (className) this.element.classList.add(...className);
     this.element.textContent = keyData;
     this.element.addEventListener('mousedown', () => {
     });
@@ -21,10 +21,11 @@ export default class Key extends CreateElement {
   }
 
   hendleKeyDown() {
-    this.onInput(this.keyData);
+    this.element.classList.add('key_state-down');
   }
 
   hendleKeyUp() {
-    console.log('key', this.element.textContent);
+    this.onInput(this.keyData);
+    this.element.classList.remove('key_state-down');
   }
 }

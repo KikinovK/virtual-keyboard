@@ -5,7 +5,6 @@ import Output from './output/Output';
 import KeyList from './keyList/KeyList';
 import keyDic from './keyDic/keyDic';
 
-
 export default class Keyboard extends CreateElement {
   constructor(paternElement) {
     super(paternElement, 'div', 'keyboard');

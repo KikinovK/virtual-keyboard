@@ -5,7 +5,7 @@ import CreateElement from '../../createElement/CreateElement';
 export default class Output extends CreateElement {
   set content(value) {
     this.private_content = value;
-    this.element.textContent = this.private_content;
+    this.element.value = this.private_content;
   }
 
   get content() {

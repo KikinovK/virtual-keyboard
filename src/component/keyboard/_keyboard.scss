@@ -1,9 +1,11 @@
 .keyboard {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  width: 83.6rem;
   height: 100%;
 }
 
 .keyboard__output {
-  height: 100px;
+  margin-bottom: 3rem;
 }

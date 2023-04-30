@@ -6,6 +6,7 @@ import Main from '../main/Main';
 export default class Layer {
   constructor() {
     this.patern = document.body;
+    this.patern.classList.add('page');
     this.header = new Header(this.patern);
     this.main = new Main(this.patern);
     this.footer = new Footer(this.patern);

@@ -1,4 +1,6 @@
-.key_list {
+.key-list {
   display: flex;
   flex-wrap: wrap;
+  row-gap: 1rem;
+  column-gap: .6rem;
 }
