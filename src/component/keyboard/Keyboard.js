@@ -101,7 +101,11 @@ export default class Keyboard extends CreateElement {
 
   switchKeyMapping() {
     this.indexKeyDic = (this.indexKeyDic + 1) % keyDic.length;
-    this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].lowCase);
+    if (!this.isCapsLock) {
+      this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].lowCase);
+    } else {
+      this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].upCase);
+    }
     this.storage.set(this.indexKeyDic);
   }
 
