@@ -18,13 +18,31 @@ export default class Keyboard extends CreateElement {
     this.output = new Output(this.element, 'keyboard__output');
     this.keyList = new KeyList(this.element, keyDic[this.indexKeyDic].lowCase, (value) => { this.onIntput(value); }, 'keyboard__keys');
 
-    this.keyList.onShift = (value, typeEven) => {
-      console.log('shift', typeEven);
-      if (typeEven === 'mousedown' || typeEven === 'keydown') {
+    this.keyList.onShift = () => {
+      console.log('onShift');
+      if (!this.isCapsLock) {
+        this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].lowCase);
+      } else {
         this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].upCase);
       }
-      if (typeEven === 'mouseup' || typeEven === 'keyup') {
+    };
+
+    this.keyList.offShift = () => {
+      console.log('offShift');
+      if (!this.isCapsLock) {
+        this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].upCase);
+      } else {
         this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].lowCase);
+      }
+    };
+
+    this.keyList.onCapsLock = () => {
+      if (!this.isCapsLock) {
+        this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].upCase);
+        this.isCapsLock = true;
+      } else {
+        this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].lowCase);
+        this.isCapsLock = false;
       }
     };
 

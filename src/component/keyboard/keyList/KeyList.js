@@ -48,15 +48,25 @@ export default class KeyList extends CreateElement {
               this.keyMap[keyIndex] = new Key(
                 this.element,
                 keyList[keyIndex],
-                (value, typeEvent) => { this.onShift(value, typeEvent); },
+                () => { this.onShift(); },
                 keyClassNames,
+                () => { this.offShift(); },
               );
               break;
             case 'ShiftRight':
               this.keyMap[keyIndex] = new Key(
                 this.element,
                 keyList[keyIndex],
-                (value, typeEvent) => { this.onShift(value, typeEvent); },
+                () => { this.onShift(); },
+                keyClassNames,
+                () => { this.offShift(); },
+              );
+              break;
+            case 'CapsLock':
+              this.keyMap[keyIndex] = new Key(
+                this.element,
+                keyList[keyIndex],
+                () => { this.onCapsLock(); },
                 keyClassNames,
               );
               break;
@@ -75,6 +85,14 @@ export default class KeyList extends CreateElement {
   }
 
   onShift() {
+    return this.keyMap[0];
+  }
+
+  offShift() {
+    return this.keyMap[0];
+  }
+
+  onCapsLock() {
     return this.keyMap[0];
   }
 
