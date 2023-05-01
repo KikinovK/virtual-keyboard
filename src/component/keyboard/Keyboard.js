@@ -88,6 +88,10 @@ export default class Keyboard extends CreateElement {
   }
 
   onIntput(value) {
-    this.output.content += value;
+    const cursorPosition = this.output.getCursorPosition();
+    const text = this.output.content;
+    this.output.content = text.slice(0, cursorPosition) + value + text.slice(cursorPosition);
+    console.log(cursorPosition, cursorPosition + value.length);
+    this.output.setCursorPosition(cursorPosition + value.length);
   }
 }

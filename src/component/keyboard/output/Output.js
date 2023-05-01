@@ -17,4 +17,13 @@ export default class Output extends CreateElement {
     if (className) this.element.classList.add(className);
     this.private_content = '';
   }
+
+  setCursorPosition(position) {
+    this.element.selectionStart = position;
+    this.element.selectionEnd = position;
+  }
+
+  getCursorPosition() {
+    return this.element.selectionStart;
+  }
 }
