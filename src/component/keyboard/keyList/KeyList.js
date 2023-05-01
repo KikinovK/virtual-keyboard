@@ -43,15 +43,39 @@ export default class KeyList extends CreateElement {
           if (fnKey.includes(keyIndex)) keyClassNames.push('key_mod-fn');
           if (sizeKey.includes(keyIndex)) keyClassNames.push('key_mod-size');
           if (keyIndex === 'Space') keyClassNames.push('key_mod2-size');
-          this.keyMap[keyIndexArr[i]] = new Key(
-            this.element,
-            keyList[keyIndex],
-            onInput,
-            keyClassNames,
-          );
+          switch (keyIndex) {
+            case 'ShiftLeft':
+              this.keyMap[keyIndex] = new Key(
+                this.element,
+                keyList[keyIndex],
+                (value, typeEvent) => { this.onShift(value, typeEvent); },
+                keyClassNames,
+              );
+              break;
+            case 'ShiftRight':
+              this.keyMap[keyIndex] = new Key(
+                this.element,
+                keyList[keyIndex],
+                (value, typeEvent) => { this.onShift(value, typeEvent); },
+                keyClassNames,
+              );
+              break;
+            default:
+              this.keyMap[keyIndex] = new Key(
+                this.element,
+                keyList[keyIndex],
+                onInput,
+                keyClassNames,
+              );
+              break;
+          }
         }
       }
     }
+  }
+
+  onShift() {
+    return this.keyMap[0];
   }
 
   switchKeyMapping(keylist) {
@@ -59,20 +83,21 @@ export default class KeyList extends CreateElement {
 
     for (let i = 0; i < keyIndexArr.length; i += 1) {
       this.keyMap[keyIndexArr[i]].element.textContent = keylist[keyIndexArr[i]];
+      this.keyMap[keyIndexArr[i]].keyData = keylist[keyIndexArr[i]];
     }
   }
 
-  hendleKeyDown(keyCode) {
+  hendleKeyDown(keyCode, typeEvent) {
     const key = this.keyMap[keyCode];
     if (key) {
-      key.hendleKeyDown();
+      key.hendleKeyDown('', typeEvent);
     }
   }
 
-  hendleKeyUp(keyCode) {
+  hendleKeyUp(keyCode, typeEvent) {
     const key = this.keyMap[keyCode];
     if (key) {
-      key.hendleKeyUp();
+      key.hendleKeyUp('', typeEvent);
     }
   }
 }

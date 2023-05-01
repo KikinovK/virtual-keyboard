@@ -9,10 +9,12 @@ export default class Key extends CreateElement {
     this.onInput = onInput;
     if (className) this.element.classList.add(...className);
     this.element.textContent = keyData;
-    this.element.addEventListener('mousedown', () => {
+    this.element.addEventListener('mousedown', (event) => {
+      onInput(this.keyData, event.type);
+      console.log(event.type);
     });
-    this.element.addEventListener('mouseup', () => {
-      onInput(keyData);
+    this.element.addEventListener('mouseup', (event) => {
+      onInput(this.keyData, event.type);
     });
     this.element.addEventListener('mouseenter', () => {
     });
@@ -20,12 +22,13 @@ export default class Key extends CreateElement {
     });
   }
 
-  hendleKeyDown() {
+  hendleKeyDown(value, typeEvent) {
     this.element.classList.add('key_state-down');
+    if (typeEvent) this.onInput(this.keyData, typeEvent);
   }
 
-  hendleKeyUp() {
-    this.onInput(this.keyData);
+  hendleKeyUp(value, typeEvent) {
+    this.onInput(this.keyData, typeEvent);
     this.element.classList.remove('key_state-down');
   }
 }

@@ -13,21 +13,33 @@ export default class Keyboard extends CreateElement {
     this.indexKeyDic = this.storage.get() ? parseInt(this.storage.get(), 10) : 0;
     this.isControlLeftDown = false;
     this.isAltLeftDown = false;
+    this.isCapsLock = false;
 
     this.output = new Output(this.element, 'keyboard__output');
     this.keyList = new KeyList(this.element, keyDic[this.indexKeyDic].lowCase, (value) => { this.onIntput(value); }, 'keyboard__keys');
 
+    this.keyList.onShift = (value, typeEven) => {
+      console.log('shift', typeEven);
+      if (typeEven === 'mousedown' || typeEven === 'keydown') {
+        this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].upCase);
+      }
+      if (typeEven === 'mouseup' || typeEven === 'keyup') {
+        this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].lowCase);
+      }
+    };
+
     document.addEventListener('keydown', (event) => {
       event.preventDefault();
-      this.keyList.hendleKeyDown(event.code);
+      this.keyList.hendleKeyDown(event.code, event.type);
       if (event.code === 'ControlLeft') this.isControlLeftDown = true;
       if (event.code === 'AltLeft') this.isAltLeftDown = true;
     });
 
     document.addEventListener('keyup', (event) => {
       event.preventDefault();
-      this.keyList.hendleKeyUp(event.code);
+      this.keyList.hendleKeyUp(event.code, event.type);
       console.log(event.code);
+
       if (event.code === 'ControlLeft') {
         if (this.isAltLeftDown === true) {
           this.switchKeyMapping();
