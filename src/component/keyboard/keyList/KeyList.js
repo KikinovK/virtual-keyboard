@@ -78,6 +78,22 @@ export default class KeyList extends CreateElement {
                 keyClassNames,
               );
               break;
+            case 'Backspace':
+              this.keyMap[keyIndex] = new Key(
+                this.element,
+                keyList[keyIndex],
+                () => { this.onBackspace(); },
+                keyClassNames,
+              );
+              break;
+            case 'Delete':
+              this.keyMap[keyIndex] = new Key(
+                this.element,
+                keyList[keyIndex],
+                () => { this.onDelete(); },
+                keyClassNames,
+              );
+              break;
             default:
               this.keyMap[keyIndex] = new Key(
                 this.element,
@@ -90,6 +106,10 @@ export default class KeyList extends CreateElement {
         }
       }
     }
+  }
+
+  onBackspace() {
+    return this.keyMap[0];
   }
 
   onEnter() {

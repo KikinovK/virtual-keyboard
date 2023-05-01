@@ -54,6 +54,20 @@ export default class Keyboard extends CreateElement {
       this.onIntput('\n');
     };
 
+    this.keyList.onBackspace = () => {
+      const cursorPosition = this.output.getCursorPosition();
+      const text = this.output.content;
+      this.output.content = text.slice(0, cursorPosition - 1) + text.slice(cursorPosition);
+      this.output.setCursorPosition(cursorPosition - 1);
+    };
+
+    this.keyList.onDelete = () => {
+      const cursorPosition = this.output.getCursorPosition();
+      const text = this.output.content;
+      this.output.content = text.slice(0, cursorPosition) + text.slice(cursorPosition + 1);
+      this.output.setCursorPosition(cursorPosition);
+    };
+
     document.addEventListener('keydown', (event) => {
       event.preventDefault();
       this.keyList.hendleKeyDown(event.code, event.type);
