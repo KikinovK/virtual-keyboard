@@ -44,16 +44,8 @@ export default class KeyList extends CreateElement {
           if (sizeKey.includes(keyIndex)) keyClassNames.push('key_mod-size');
           if (keyIndex === 'Space') keyClassNames.push('key_mod2-size');
           switch (keyIndex) {
-            case 'ShiftLeft':
-              this.keyMap[keyIndex] = new Key(
-                this.element,
-                keyList[keyIndex],
-                () => { this.onShift(); },
-                keyClassNames,
-                () => { this.offShift(); },
-              );
-              break;
             case 'ShiftRight':
+            case 'ShiftLeft':
               this.keyMap[keyIndex] = new Key(
                 this.element,
                 keyList[keyIndex],
@@ -70,6 +62,22 @@ export default class KeyList extends CreateElement {
                 keyClassNames,
               );
               break;
+            case 'Tab':
+              this.keyMap[keyIndex] = new Key(
+                this.element,
+                keyList[keyIndex],
+                () => { this.onTab(); },
+                keyClassNames,
+              );
+              break;
+            case 'Enter':
+              this.keyMap[keyIndex] = new Key(
+                this.element,
+                keyList[keyIndex],
+                () => { this.onEnter(); },
+                keyClassNames,
+              );
+              break;
             default:
               this.keyMap[keyIndex] = new Key(
                 this.element,
@@ -82,6 +90,14 @@ export default class KeyList extends CreateElement {
         }
       }
     }
+  }
+
+  onEnter() {
+    return this.keyMap[0];
+  }
+
+  onTab() {
+    return this.keyMap[0];
   }
 
   onShift() {

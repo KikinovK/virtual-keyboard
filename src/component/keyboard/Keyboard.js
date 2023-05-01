@@ -46,6 +46,14 @@ export default class Keyboard extends CreateElement {
       }
     };
 
+    this.keyList.onTab = () => {
+      this.onIntput('    ');
+    };
+
+    this.keyList.onEnter = () => {
+      this.onIntput('\n');
+    };
+
     document.addEventListener('keydown', (event) => {
       event.preventDefault();
       this.keyList.hendleKeyDown(event.code, event.type);
