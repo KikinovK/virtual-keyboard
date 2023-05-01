@@ -13,7 +13,7 @@ export default class Keyboard extends CreateElement {
     this.isAltLeftDown = false;
 
     this.output = new Output(this.element, 'keyboard__output');
-    this.keyList = new KeyList(this.element, keyDic[this.indexKeyDic].lowCase, (value) => { this.output.content += value; }, 'keyboard__keys');
+    this.keyList = new KeyList(this.element, keyDic[this.indexKeyDic].lowCase, (value) => { this.onIntput(value); }, 'keyboard__keys');
 
     document.addEventListener('keydown', (event) => {
       event.preventDefault();
@@ -44,5 +44,9 @@ export default class Keyboard extends CreateElement {
   switchKeyMapping() {
     this.indexKeyDic = (this.indexKeyDic + 1) % keyDic.length;
     this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].lowCase);
+  }
+
+  onIntput(value) {
+    this.output.content += value;
   }
 }
