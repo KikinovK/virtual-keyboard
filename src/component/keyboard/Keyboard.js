@@ -68,30 +68,37 @@ export default class Keyboard extends CreateElement {
       this.output.setCursorPosition(cursorPosition);
     };
 
+    this.keyList.onAltLeft = () => {
+      if (this.isControlLeftDown === true) {
+        this.switchKeyMapping();
+      }
+      this.isAltLeftDown = false;
+    };
+
+    this.keyList.onControlLeft = () => {
+      if (this.isAltLeftDown === true) {
+        this.switchKeyMapping();
+      }
+      this.isControlLeftDown = false;
+    };
+
+    this.keyList.offAltLeft = () => {
+      this.isAltLeftDown = true;
+    };
+
+    this.keyList.offControlLeft = () => {
+      this.isControlLeftDown = true;
+    };
+
     document.addEventListener('keydown', (event) => {
       event.preventDefault();
       this.keyList.hendleKeyDown(event.code, event.type);
-      if (event.code === 'ControlLeft') this.isControlLeftDown = true;
-      if (event.code === 'AltLeft') this.isAltLeftDown = true;
     });
 
     document.addEventListener('keyup', (event) => {
       event.preventDefault();
       this.keyList.hendleKeyUp(event.code, event.type);
       console.log(event.code);
-
-      if (event.code === 'ControlLeft') {
-        if (this.isAltLeftDown === true) {
-          this.switchKeyMapping();
-        }
-        this.isControlLeftDown = false;
-      }
-      if (event.code === 'AltLeft') {
-        if (this.isControlLeftDown === true) {
-          this.switchKeyMapping();
-        }
-        this.isAltLeftDown = false;
-      }
     });
   }
 

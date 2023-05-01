@@ -94,6 +94,33 @@ export default class KeyList extends CreateElement {
                 keyClassNames,
               );
               break;
+            case 'AltLeft':
+              this.keyMap[keyIndex] = new Key(
+                this.element,
+                keyList[keyIndex],
+                () => { this.onAltLeft(); },
+                keyClassNames,
+                () => { this.offAltLeft(); },
+              );
+              break;
+            case 'ControlLeft':
+              this.keyMap[keyIndex] = new Key(
+                this.element,
+                keyList[keyIndex],
+                () => { this.onControlLeft(); },
+                keyClassNames,
+                () => { this.offControlLeft(); },
+              );
+              break;
+            case 'AltRight':
+            case 'ControlRight':
+              this.keyMap[keyIndex] = new Key(
+                this.element,
+                keyList[keyIndex],
+                () => {},
+                keyClassNames,
+              );
+              break;
             default:
               this.keyMap[keyIndex] = new Key(
                 this.element,
@@ -106,6 +133,22 @@ export default class KeyList extends CreateElement {
         }
       }
     }
+  }
+
+  offAltLeft() {
+    return this.keyMap[0];
+  }
+
+  offControlLeft() {
+    return this.keyMap[0];
+  }
+
+  onAltLeft() {
+    return this.keyMap[0];
+  }
+
+  onControlLeft() {
+    return this.keyMap[0];
   }
 
   onBackspace() {
