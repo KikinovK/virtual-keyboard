@@ -4,11 +4,13 @@ import CreateElement from '../createElement/CreateElement';
 import Output from './output/Output';
 import KeyList from './keyList/KeyList';
 import keyDic from './keyDic/keyDic';
+import Storage from '../storage/Storage';
 
 export default class Keyboard extends CreateElement {
   constructor(paternElement) {
     super(paternElement, 'div', 'keyboard');
-    this.indexKeyDic = 0;
+    this.storage = new Storage('indexKeyDic');
+    this.indexKeyDic = this.storage.get() ? parseInt(this.storage.get(), 10) : 0;
     this.isControlLeftDown = false;
     this.isAltLeftDown = false;
 
@@ -44,6 +46,7 @@ export default class Keyboard extends CreateElement {
   switchKeyMapping() {
     this.indexKeyDic = (this.indexKeyDic + 1) % keyDic.length;
     this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].lowCase);
+    this.storage.set(this.indexKeyDic);
   }
 
   onIntput(value) {
