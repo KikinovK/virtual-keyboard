@@ -54,6 +54,14 @@ export default class KeyList extends CreateElement {
     }
   }
 
+  switchKeyMapping(keylist) {
+    const keyIndexArr = Object.keys(keylist);
+
+    for (let i = 0; i < keyIndexArr.length; i += 1) {
+      this.keyMap[keyIndexArr[i]].element.textContent = keylist[keyIndexArr[i]];
+    }
+  }
+
   hendleKeyDown(keyCode) {
     const key = this.keyMap[keyCode];
     if (key) {
