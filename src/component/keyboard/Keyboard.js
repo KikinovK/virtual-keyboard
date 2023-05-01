@@ -19,7 +19,6 @@ export default class Keyboard extends CreateElement {
     this.keyList = new KeyList(this.element, keyDic[this.indexKeyDic].lowCase, (value) => { this.onIntput(value); }, 'keyboard__keys');
 
     this.keyList.onShift = () => {
-      console.log('onShift');
       if (!this.isCapsLock) {
         this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].lowCase);
       } else {
@@ -28,7 +27,6 @@ export default class Keyboard extends CreateElement {
     };
 
     this.keyList.offShift = () => {
-      console.log('offShift');
       if (!this.isCapsLock) {
         this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].upCase);
       } else {
@@ -98,7 +96,6 @@ export default class Keyboard extends CreateElement {
     document.addEventListener('keyup', (event) => {
       event.preventDefault();
       this.keyList.hendleKeyUp(event.code, event.type);
-      console.log(event.code);
     });
   }
 
@@ -112,7 +109,6 @@ export default class Keyboard extends CreateElement {
     const cursorPosition = this.output.getCursorPosition();
     const text = this.output.content;
     this.output.content = text.slice(0, cursorPosition) + value + text.slice(cursorPosition);
-    console.log(cursorPosition, cursorPosition + value.length);
     this.output.setCursorPosition(cursorPosition + value.length);
   }
 }

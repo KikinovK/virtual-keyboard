@@ -12,6 +12,6 @@ const keyDic = [
     lowCase: keyDicRuLowCase,
     upCase: keyDicRuUpCase,
   },
-]
+];
 
-export default keyDic
+export default keyDic;

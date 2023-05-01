@@ -10,9 +10,8 @@ export default class Key extends CreateElement {
     this.offInput = offInput;
     if (className) this.element.classList.add(...className);
     this.element.textContent = keyData;
-    this.element.addEventListener('mousedown', (event) => {
+    this.element.addEventListener('mousedown', () => {
       this.hendleKeyDown();
-      console.log(event.type);
     });
     this.element.addEventListener('mouseup', () => {
       this.hendleKeyUp();
