@@ -16,10 +16,6 @@ export default class Key extends CreateElement {
     this.element.addEventListener('mouseup', () => {
       this.hendleKeyUp();
     });
-    this.element.addEventListener('mouseenter', () => {
-    });
-    this.element.addEventListener('mousedown', () => {
-    });
   }
 
   hendleKeyDown() {
