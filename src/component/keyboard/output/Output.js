@@ -16,6 +16,7 @@ export default class Output extends CreateElement {
     super(paternElement, 'textarea', 'output');
     if (className) this.element.classList.add(className);
     this.private_content = '';
+    this.element.focus();
   }
 
   setCursorPosition(position) {
