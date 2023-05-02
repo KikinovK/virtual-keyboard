@@ -22,7 +22,7 @@ export default class Keyboard extends CreateElement {
       if (!this.isCapsLock) {
         this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].lowCase);
       } else {
-        this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].upCase);
+        this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].capsLock);
       }
     };
 
@@ -30,13 +30,13 @@ export default class Keyboard extends CreateElement {
       if (!this.isCapsLock) {
         this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].upCase);
       } else {
-        this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].lowCase);
+        this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].capsLockLowCase);
       }
     };
 
     this.keyList.onCapsLock = () => {
       if (!this.isCapsLock) {
-        this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].upCase);
+        this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].capsLock);
         this.isCapsLock = true;
       } else {
         this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].lowCase);
@@ -104,7 +104,7 @@ export default class Keyboard extends CreateElement {
     if (!this.isCapsLock) {
       this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].lowCase);
     } else {
-      this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].upCase);
+      this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].capsLock);
     }
     this.storage.set(this.indexKeyDic);
   }

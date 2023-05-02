@@ -1,17 +1,17 @@
-const keyDicEnLowCase = {
+const keyDicRuCapsLock = {
   Backquote: 'Ё',
-  Digit1: '!',
-  Digit2: '"',
-  Digit3: '№',
-  Digit4: ';',
-  Digit5: '%',
-  Digit6: ':',
-  Digit7: '?',
-  Digit8: '*',
-  Digit9: '(',
-  Digit0: ')',
-  Minus: '_',
-  Equal: '+',
+  Digit1: '1',
+  Digit2: '2',
+  Digit3: '3',
+  Digit4: '4',
+  Digit5: '5',
+  Digit6: '6',
+  Digit7: '7',
+  Digit8: '8',
+  Digit9: '9',
+  Digit0: '0',
+  Minus: '-',
+  Equal: '=',
   Backspace: 'Backspace',
   Tab: 'Tab',
   KeyQ: 'Й',
@@ -52,7 +52,7 @@ const keyDicEnLowCase = {
   KeyM: 'Ь',
   Comma: 'Б',
   Period: 'Ю',
-  Slash: ',',
+  Slash: '.',
   ArrowUp: '\u2191',
   ShiftRight: 'Shift',
   ControlLeft: 'Ctr',
@@ -66,4 +66,4 @@ const keyDicEnLowCase = {
   ArrowRight: '\u2192',
 };
 
-export default keyDicEnLowCase;
+export default keyDicRuCapsLock;
