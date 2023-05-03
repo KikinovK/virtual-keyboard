@@ -54,9 +54,11 @@ export default class Keyboard extends CreateElement {
 
     this.keyList.onBackspace = () => {
       const cursorPosition = this.output.getCursorPosition();
-      const text = this.output.content;
-      this.output.content = text.slice(0, cursorPosition - 1) + text.slice(cursorPosition);
-      this.output.setCursorPosition(cursorPosition - 1);
+      if (cursorPosition !== 0) {
+        const text = this.output.content;
+        this.output.content = text.slice(0, cursorPosition - 1) + text.slice(cursorPosition);
+        this.output.setCursorPosition(cursorPosition - 1);
+      }
     };
 
     this.keyList.onDelete = () => {
