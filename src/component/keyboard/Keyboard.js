@@ -1,0 +1,120 @@
+import './_keyboard.scss';
+
+import CreateElement from '../createElement/CreateElement';
+import Output from './output/Output';
+import KeyList from './keyList/KeyList';
+import keyDic from './keyDic/keyDic';
+import Storage from '../storage/Storage';
+
+export default class Keyboard extends CreateElement {
+  constructor(paternElement) {
+    super(paternElement, 'div', 'keyboard');
+    this.storage = new Storage('indexKeyDic');
+    this.indexKeyDic = this.storage.get() ? parseInt(this.storage.get(), 10) : 0;
+    this.isControlLeftDown = false;
+    this.isAltLeftDown = false;
+    this.isCapsLock = false;
+
+    this.output = new Output(this.element, 'keyboard__output');
+    this.keyList = new KeyList(this.element, keyDic[this.indexKeyDic].lowCase, (value) => { this.onIntput(value); }, 'keyboard__keys');
+
+    this.keyList.onShift = () => {
+      if (!this.isCapsLock) {
+        this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].lowCase);
+      } else {
+        this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].capsLock);
+      }
+    };
+
+    this.keyList.offShift = () => {
+      if (!this.isCapsLock) {
+        this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].upCase);
+      } else {
+        this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].capsLockLowCase);
+      }
+    };
+
+    this.keyList.onCapsLock = () => {
+      if (!this.isCapsLock) {
+        this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].capsLock);
+        this.isCapsLock = true;
+      } else {
+        this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].lowCase);
+        this.isCapsLock = false;
+      }
+    };
+
+    this.keyList.onTab = () => {
+      this.onIntput('    ');
+    };
+
+    this.keyList.onEnter = () => {
+      this.onIntput('\n');
+    };
+
+    this.keyList.onBackspace = () => {
+      const cursorPosition = this.output.getCursorPosition();
+      if (cursorPosition !== 0) {
+        const text = this.output.content;
+        this.output.content = text.slice(0, cursorPosition - 1) + text.slice(cursorPosition);
+        this.output.setCursorPosition(cursorPosition - 1);
+      }
+    };
+
+    this.keyList.onDelete = () => {
+      const cursorPosition = this.output.getCursorPosition();
+      const text = this.output.content;
+      this.output.content = text.slice(0, cursorPosition) + text.slice(cursorPosition + 1);
+      this.output.setCursorPosition(cursorPosition);
+    };
+
+    this.keyList.onAltLeft = () => {
+      if (this.isControlLeftDown === true) {
+        this.switchKeyMapping();
+      }
+      this.isAltLeftDown = false;
+    };
+
+    this.keyList.onControlLeft = () => {
+      if (this.isAltLeftDown === true) {
+        this.switchKeyMapping();
+      }
+      this.isControlLeftDown = false;
+    };
+
+    this.keyList.offAltLeft = () => {
+      this.isAltLeftDown = true;
+    };
+
+    this.keyList.offControlLeft = () => {
+      this.isControlLeftDown = true;
+    };
+
+    document.addEventListener('keydown', (event) => {
+      event.preventDefault();
+      this.keyList.hendleKeyDown(event.code, event.type);
+    });
+
+    document.addEventListener('keyup', (event) => {
+      event.preventDefault();
+      this.keyList.hendleKeyUp(event.code, event.type);
+    });
+  }
+
+  switchKeyMapping() {
+    this.indexKeyDic = (this.indexKeyDic + 1) % keyDic.length;
+    if (!this.isCapsLock) {
+      this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].lowCase);
+    } else {
+      this.keyList.switchKeyMapping(keyDic[this.indexKeyDic].capsLock);
+    }
+    this.storage.set(this.indexKeyDic);
+  }
+
+  onIntput(value) {
+    const cursorPosition = this.output.getCursorPosition();
+    const text = this.output.content;
+    this.output.content = text.slice(0, cursorPosition) + value + text.slice(cursorPosition);
+    this.output.setCursorPosition(cursorPosition + value.length);
+  }
+}

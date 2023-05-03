@@ -1,0 +1,40 @@
+.key {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 5rem;
+  height: 5rem;
+
+  font-weight: 500;
+  color: #ffffff;
+
+  background-color: #3A424E;
+  border-radius: 3px;
+
+  cursor: pointer;
+
+  transition: background-color .1s,
+    transition;
+}
+
+.key_mod-fn {
+  background-color: #000000;
+}
+
+.key_mod-size {
+  width: 10.6rem;
+}
+
+.key_mod2-size {
+  width: 38.6rem;
+}
+
+.key:hover,
+.key_state-down {
+  background-color: #5571EE;
+}
+
+.key_state-down {
+  transform: scale(.9);
+}
